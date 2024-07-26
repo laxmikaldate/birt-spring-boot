@@ -16,15 +16,17 @@ import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuild
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.post;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
 import static org.springframework.restdocs.payload.PayloadDocumentation.requestFields;
-
-import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
 import static org.springframework.restdocs.payload.PayloadDocumentation.subsectionWithPath;
+import static org.springframework.restdocs.request.RequestDocumentation.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.io.UnsupportedEncodingException;
 import java.util.Map;
 
-import org.junit.*;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Rule;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -32,6 +34,7 @@ import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.restdocs.JUnitRestDocumentation;
 import org.springframework.restdocs.payload.JsonFieldType;
+import org.springframework.restdocs.request.RequestDocumentation;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
@@ -135,17 +138,17 @@ public class SubmitReportTest extends BaseTest {
 				.andExpect(status().is(415)).andReturn();
 		System.out.println(result);
 	}
-	@Ignore
+
 	@Test
 	public void testGetJobInfo() throws Exception {
-	/*	final String jobId = submit("pdf");
+		final String jobId = submit("pdf");
 		final String requestString = getRequestBasedOnJobId(jobId);
 		log.info("testGetJobInfo request = " + requestString);
 
 		final MvcResult result = this.mockMvc
 				.perform(get("/getJobInfo").param("jobId", jobId).accept(MediaType.APPLICATION_JSON))
 				.andExpect(status().isOk()).andDo(document("getJobInfo",
-						requestParameters(parameterWithName("jobId").description(JOB_ID_DESCRIPTION))))
+						queryParameters(parameterWithName("jobId").description(JOB_ID_DESCRIPTION))))
 				.andReturn();
 		final MockHttpServletResponse httpServletResponse = result.getResponse();
 		Assert.assertTrue(httpServletResponse.getContentType().startsWith("application/json"));
@@ -168,7 +171,7 @@ public class SubmitReportTest extends BaseTest {
 		Assert.assertTrue(Integer.valueOf(0).equals(numberOfDependents));
 		final Object done = getJobInfoResponse.get("done");
 		Assert.assertNotNull(done);
-		log.info("getJobInfo done = " + done);*/
+		log.info("getJobInfo done = " + done);
 	}
 
 	@Test
@@ -184,13 +187,13 @@ public class SubmitReportTest extends BaseTest {
 
 	@Test
 	public void testWaitForJob() throws Exception {
-	/*	final String jobId = submit("pdf");
+		final String jobId = submit("pdf");
 		log.info("testWaitForJob request = " + jobId);
 
 		final MvcResult result = this.mockMvc
 				.perform(get("/waitForJob").param("jobId", jobId).accept(MediaType.APPLICATION_JSON))
 				.andExpect(status().isOk()).andDo(document("waitForJob",
-						requestParameters(parameterWithName("jobId").description(JOB_ID_DESCRIPTION))))
+						RequestDocumentation.queryParameters(parameterWithName("jobId").description(JOB_ID_DESCRIPTION))))
 				.andReturn();
 		final MockHttpServletResponse httpServletResponse = result.getResponse();
 		Assert.assertTrue(httpServletResponse.getContentType().startsWith("application/json"));
@@ -205,7 +208,7 @@ public class SubmitReportTest extends BaseTest {
 		final String status = submitResponse.get("status");
 		Assert.assertNotNull(status);
 		System.out.println(status);
-		Assert.assertEquals(StatusEnum.COMPLETE.toString(), status);*/
+		Assert.assertEquals(StatusEnum.COMPLETE.toString(), status);
 	}
 
 	@Test
@@ -227,18 +230,16 @@ public class SubmitReportTest extends BaseTest {
 		final String requestString = getRequestBasedOnJobId(jobId);
 		log.info("/deleteJob request = " + requestString);
 
-		/*final MvcResult result = this.mockMvc
+		final MvcResult result = this.mockMvc
 				.perform(delete("/deleteJob").param("jobId", jobId).accept(MediaType.APPLICATION_JSON))
-				.andExpect(status().isOk()).andDo(document("deleteJob",
-						requestParameters(parameterWithName("jobId").description(JOB_ID_DESCRIPTION))))
-				.andReturn();
+				.andExpect(status().isOk()).andReturn();
 		final MockHttpServletResponse httpServletResponse = result.getResponse();
 		Assert.assertTrue(httpServletResponse.getContentType().startsWith("application/json"));
 		final String jsonString = httpServletResponse.getContentAsString();
 		log.info("/deleteJob response = " + jsonString);
 		final ObjectMapper mapper = new ObjectMapper();
 		final Boolean response = mapper.readValue(jsonString, Boolean.class);
-		System.out.println(response);*/
+		System.out.println(response);
 	}
 
 	@Test
@@ -253,20 +254,20 @@ public class SubmitReportTest extends BaseTest {
 
 	@Test
 	public void testGetReport() throws Exception {
-		/*final String jobId = submit("pdf");
+		final String jobId = submit("pdf");
 		final String requestString = getRequestBasedOnJobId(jobId);
 		log.info("testGetReport request = " + requestString);
 
 		final MvcResult result = this.mockMvc
 				.perform(get("/getReport").param("jobId", jobId).accept(MediaType.APPLICATION_JSON))
 				.andExpect(status().isOk()).andDo(document("getReport",
-						requestParameters(parameterWithName("jobId").description(JOB_ID_DESCRIPTION)))).andReturn();
+						RequestDocumentation.queryParameters(parameterWithName("jobId").description(JOB_ID_DESCRIPTION)))).andReturn();
 		final MockHttpServletResponse httpServletResponse = result.getResponse();
 		final String contentType = httpServletResponse.getContentType();
 		Assert.assertEquals("application/pdf", contentType);
 		final String content = httpServletResponse.getContentAsString();
 		Assert.assertTrue(content.startsWith("%PDF-1.5"));
-		log.info("getReport done");*/
+		log.info("getReport done");
 	}
 
 	@Test
