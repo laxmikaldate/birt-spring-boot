@@ -4,8 +4,8 @@ import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
 
-import javax.annotation.PostConstruct;
 
+import jakarta.annotation.PostConstruct;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 import com.innoventsolutions.birt.config.BirtConfig;

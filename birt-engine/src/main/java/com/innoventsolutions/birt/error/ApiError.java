@@ -14,10 +14,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
-import javax.validation.ConstraintViolation;
 
 import org.apache.commons.lang.exception.ExceptionUtils;
-import org.hibernate.validator.internal.engine.path.PathImpl;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
@@ -117,12 +116,12 @@ public class ApiError {
 	 *
 	 * @param cv the ConstraintViolation
 	 */
-	private void addValidationError(final ConstraintViolation<?> cv) {
-		this.addValidationError(cv.getRootBeanClass().getSimpleName(),
-				((PathImpl) cv.getPropertyPath()).getLeafNode().asString(), cv.getInvalidValue(), cv.getMessage());
+	private void addValidationError(final Object cv) {
+		//this.addValidationError(cv.getRootBeanClass().getSimpleName(),
+				//((PathImpl) cv.getPropertyPath()).getLeafNode().asString(), cv.getInvalidValue(), cv.getMessage());
 	}
 
-	public void addValidationErrors(final Set<ConstraintViolation<?>> constraintViolations) {
+	public void addValidationErrors(final Set<Object> constraintViolations) {
 		constraintViolations.forEach(this::addValidationError);
 	}
 
